@@ -8,7 +8,7 @@
 package routes
 
 import (
-	"dogo/logger"
+	"github.com/A-long-Li/dogo/logger"
 
 	"github.com/gin-gonic/gin"
 )
