@@ -1,7 +1,9 @@
-module dogo
+module github.com/A-long-Li/dogo
+
 
 
 go 1.19
+
 
 require (
 	github.com/fsnotify/fsnotify v1.5.4

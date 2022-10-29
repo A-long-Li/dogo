@@ -9,9 +9,10 @@ package redis
 
 import (
 	"context"
-	"dogo/settings"
 	"fmt"
 	"time"
+
+	"github.com/A-long-Li/dogo/settings"
 
 	"github.com/go-redis/redis/v8"
 )
