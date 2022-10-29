@@ -15,27 +15,33 @@ import (
 	"github.com/spf13/viper"
 )
 
+var Conf = new(AppConfig)
+
 type AppConfig struct {
-	Name         string `mapstructure:"name"`
-	Mode         string `mapstructure:"mode"`
-	Version      string `mapstructure:"version"`
-	Port         int    `mapstructure:"port"`
-	*LogConfig   `mapstructure:"log"`
-	*MysqlConfig `mapstructure:"mysql"`
-	*RedisConfig `mapstructure:"redis"`
+	Name            string `mapstructure:"name"`
+	Mode            string `mapstructure:"mode"`
+	Version         string `mapstructure:"version"`
+	Port            int    `mapstructure:"port"`
+	*LogConfig      `mapstructure:"log"`
+	*DatabaseConfig `mapstructure:"datasource"`
+	*RedisConfig    `mapstructure:"redis"`
 }
 type LogConfig struct {
 	Level      string `mapstructure:"level"`
 	Filename   string `mapstructure:"filename"`
-	MaxSize    string `mapstructure:"max_size"`
-	MaxAge     string `mapstructure:"max_age"`
-	MaxBackups string `mapstructure:"max_backups"`
+	MaxSize    int    `mapstructure:"max_size"`
+	MaxAge     int    `mapstructure:"max_age"`
+	MaxBackups int    `mapstructure:"max_backups"`
 }
-type MysqlConfig struct {
+type DatabaseConfig struct {
 	Host         string `mapstructure:"host"`
-	User         string `mapstructure:"user"`
+	Port         string `mapstructure:"port"`
+	User         string `mapstructure:"username"`
+	CharSet      string `mapstructure:"charset"`
 	PassWord     string `mapstructure:"password"`
-	DatabaseName int    `mapstructure:"database_name"`
+	Location     string `mapstructure:"loc"`
+	DriverName   string `mapstructure:"driver_name"`
+	DatabaseName string `mapstructure:"database"`
 	MaxOpenConns int    `mapstructure:"max_open_conns"`
 	MaxIdleConns int    `mapstructure:"max_idle_conns"`
 }
@@ -48,14 +54,20 @@ type RedisConfig struct {
 }
 
 func Init() (err error) {
-	viper.SetConfigFile("./settings/config.yaml") // 指定配置文件路径
-	err = viper.ReadInConfig()                    // 查找并读取配置文件
-	if err != nil {                               // 处理读取配置文件的错误
+	viper.SetConfigFile("./config/config.yaml") // 指定配置文件路径
+	err = viper.ReadInConfig()                  // 查找并读取配置文件
+	if err != nil {                             // 处理读取配置文件的错误
 		panic(fmt.Errorf("viper.ReadInConfig() failed: %s \n", err))
+	}
+	if err := viper.Unmarshal(Conf); err != nil {
+		panic(fmt.Errorf("viper.Unmarshal() failed: %s \n", err))
 	}
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Printf("config file changed %s \n:", e.Name)
+		if err := viper.Unmarshal(Conf); err != nil {
+			panic(fmt.Errorf("viper.Unmarshal() failed: %s \n", err))
+		}
 	})
 	return
 }

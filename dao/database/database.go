@@ -10,27 +10,27 @@ package database
 import (
 	"fmt"
 	"net/url"
+	"web_app/settings"
 
 	"go.uber.org/zap"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/spf13/viper"
 )
 
 var (
 	db *gorm.DB
 )
 
-func Init() (err error) {
-	driverName := viper.GetString("datasource.driverName")
-	host := viper.GetString("datasource.host")
-	port := viper.GetString("datasource.port")
-	database := viper.GetString("datasource.database")
-	username := viper.GetString("datasource.username")
-	password := viper.GetString("datasource.password")
-	charset := viper.GetString("datasource.charset")
-	loc := viper.GetString("datasource.loc")
+func Init(conf *settings.DatabaseConfig) (err error) {
+	driverName := conf.DriverName
+	host := conf.Host
+	port := conf.Port
+	database := conf.DatabaseName
+	username := conf.User
+	password := conf.PassWord
+	charset := conf.CharSet
+	loc := conf.Location
 
 	msg := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=true&loc=%s",
 		username,
@@ -41,13 +41,14 @@ func Init() (err error) {
 		charset,
 		url.QueryEscape(loc))
 	db, err = gorm.Open(driverName, msg)
+	fmt.Println(msg)
 	if err != nil {
 		zap.L().Error("connect database failed", zap.Error(err))
 	}
-	db.DB().SetMaxOpenConns(viper.GetInt("datasource.max_open_conn"))
-	db.DB().SetMaxIdleConns(viper.GetInt("datasource.max_idle_conn"))
+	db.DB().SetMaxOpenConns(conf.MaxOpenConns)
+	db.DB().SetMaxIdleConns(conf.MaxIdleConns)
 
-	return db.DB().Ping()
+	return
 }
 
 func Close() {

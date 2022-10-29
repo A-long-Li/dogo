@@ -15,6 +15,7 @@ import (
 	"runtime/debug"
 	"strings"
 	"time"
+	"web_app/settings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -26,16 +27,16 @@ import (
 
 var lg *zap.Logger
 
-func Init() (err error) {
+func Init(conf *settings.LogConfig) (err error) {
 	writeSyncer := getLogWriter(
-		viper.GetString("log.filename"),
-		viper.GetInt("log.max_size"),
-		viper.GetInt("log.max_backup"),
-		viper.GetInt("log.max_age"),
+		conf.Filename,
+		conf.MaxSize,
+		conf.MaxBackups,
+		conf.MaxAge,
 	)
 	encoder := getEncoder()
 	logLevel := new(zapcore.Level)
-	err = logLevel.UnmarshalText([]byte(viper.GetString("log.level")))
+	err = logLevel.UnmarshalText([]byte(viper.GetString(conf.Level)))
 	if err != nil {
 		return
 	}

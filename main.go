@@ -30,12 +30,13 @@ func main() {
 	initConfig()
 	initLogger()
 	initDatabase()
+	defer database.Close()
 	//initRedis()
 	defer zap.L().Sync()
-	defer database.Close()
+
 	//defer redis.Close()
 	r := routes.SetUp()
-
+	//平滑关机 重启项目
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),
 		Handler: r,
@@ -76,21 +77,21 @@ func initConfig() {
 	}
 }
 func initLogger() {
-	err := logger.Init()
+	err := logger.Init(settings.Conf.LogConfig)
 	if err != nil {
 		panic(fmt.Errorf("logger init failed,err:%s\n", err))
 	}
 	zap.L().Debug("logger init success.....")
 }
 func initDatabase() {
-	err := database.Init()
+	err := database.Init(settings.Conf.DatabaseConfig)
 	if err != nil {
-		panic(fmt.Errorf("database -> %s init failed,err:%s\n", viper.GetString("datasource.driverName"), err))
+		panic(fmt.Errorf("database -> %s init failed,err:%s\n", settings.Conf.DatabaseConfig.DriverName, err))
 	}
 }
 
 func initRedis() {
-	err := redis.Init()
+	err := redis.Init(settings.Conf.RedisConfig)
 
 	if err != nil {
 		panic(fmt.Errorf("database -> %s init failed,err:%s\n", viper.GetString("datasource.driverName"), err))

@@ -12,7 +12,7 @@ log:
   max_backup: 7
 #数据库连接设置
 datasource:
-  driverName: mysql
+  driver_name: mysql
   host: 127.0.0.1
   port: 3306
   database: net_group
@@ -20,8 +20,8 @@ datasource:
   password: root
   charset: utf8
   loc: Asia/Shanghai
-  max_open_conn: 200
-  max_idle_conn: 50
+  max_open_conns: 200
+  max_idle_conns: 50
 
 #redis设置
 redis:
