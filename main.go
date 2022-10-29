@@ -15,11 +15,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/A-long-Li/dogo/dao/database"
-	"github.com/A-long-Li/dogo/dao/redis"
-	"github.com/A-long-Li/dogo/logger"
-	"github.com/A-long-Li/dogo/routes"
-	"github.com/A-long-Li/dogo/settings"
+	"dogo/dao/database"
+	"dogo/dao/redis"
+	"dogo/logger"
+	"dogo/routes"
+	"dogo/settings"
 
 	"github.com/gin-gonic/gin"
 
