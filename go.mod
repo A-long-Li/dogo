@@ -2,8 +2,6 @@ module github.com/A-long-Li/dogo
 
 go 1.19
 
-replace github.com/A-long-Li/dogo => github.com/a-long-li/dogo v0.0.0-20221029130801-51982ca83ff7
-
 require (
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.8.1
