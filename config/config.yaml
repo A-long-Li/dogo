@@ -8,7 +8,7 @@ app:
 log:
   level: debug
   filename: web_app.log
-  max_size: 250
+  max_size: 200
   max_age: 30
   max_backup: 7
 #数据库连接设置

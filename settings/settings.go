@@ -70,8 +70,9 @@ type RedisConfig struct {
 // Init 初始化
 func Init() (err error) {
 	viper.SetConfigFile("./config/config.yaml") // 指定配置文件路径
-	err = viper.ReadInConfig()                  // 查找并读取配置文件
-	if err != nil {                             // 处理读取配置文件的错误
+	//viper.SetConfigType("type_name") 使用远程发送过来的配置文件 需要指定其文件类型
+	err = viper.ReadInConfig() // 查找并读取配置文件
+	if err != nil {            // 处理读取配置文件的错误
 		panic(fmt.Errorf("viper.ReadInConfig() failed: %s \n", err))
 	}
 	if err := viper.Unmarshal(Conf); err != nil {
