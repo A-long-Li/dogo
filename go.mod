@@ -1,4 +1,5 @@
-module web_app
+module github.com/A-long-Li/dogo
+
 
 go 1.19
 
