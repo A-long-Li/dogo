@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/A-long-Li/dogo/settings"
+	"dogo/settings"
 
 	"github.com/go-redis/redis/v8"
 )

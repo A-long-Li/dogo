@@ -11,7 +11,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/A-long-Li/dogo/settings"
+	"dogo/settings"
+
 	"go.uber.org/zap"
 
 	"github.com/jinzhu/gorm"

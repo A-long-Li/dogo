@@ -16,7 +16,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/A-long-Li/dogo/settings"
+	"dogo/settings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
