@@ -17,12 +17,15 @@ import (
 
 var Conf = new(ConfigUnit)
 
+// ConfigUnit 配置聚合结构体
 type ConfigUnit struct {
 	*AppConfig      `mapstructure:"app"`
 	*LogConfig      `mapstructure:"log"`
 	*DatabaseConfig `mapstructure:"datasource"`
 	*RedisConfig    `mapstructure:"redis"`
 }
+
+// AppConfig 应用配置结构体
 type AppConfig struct {
 	Name      string `mapstructure:"name"`
 	Mode      string `mapstructure:"mode"`
@@ -31,6 +34,8 @@ type AppConfig struct {
 	StartTime string `mapstructure:"start_time"`
 	MachineID string `mapstructure:"Machine_id"`
 }
+
+// LogConfig 日志配置结构体
 type LogConfig struct {
 	Level      string `mapstructure:"level"`
 	Filename   string `mapstructure:"filename"`
@@ -38,6 +43,8 @@ type LogConfig struct {
 	MaxAge     int    `mapstructure:"max_age"`
 	MaxBackups int    `mapstructure:"max_backups"`
 }
+
+// DatabaseConfig 数据库配置结构体
 type DatabaseConfig struct {
 	Host         string `mapstructure:"host"`
 	Port         string `mapstructure:"port"`
@@ -50,6 +57,8 @@ type DatabaseConfig struct {
 	MaxOpenConns int    `mapstructure:"max_open_conns"`
 	MaxIdleConns int    `mapstructure:"max_idle_conns"`
 }
+
+// RedisConfig redis配置结构体
 type RedisConfig struct {
 	Host     string `mapstructure:"host"`
 	PassWord string `mapstructure:"password"`
@@ -58,6 +67,7 @@ type RedisConfig struct {
 	PoolSize int    `mapstructure:"pool_size"`
 }
 
+// Init 初始化
 func Init() (err error) {
 	viper.SetConfigFile("./config/config.yaml") // 指定配置文件路径
 	err = viper.ReadInConfig()                  // 查找并读取配置文件
