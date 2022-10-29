@@ -1,4 +1,4 @@
-module github.com/A-long-Li/dogo
+module dogo
 
 
 go 1.19
