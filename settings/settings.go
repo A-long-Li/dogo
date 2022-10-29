@@ -15,16 +15,21 @@ import (
 	"github.com/spf13/viper"
 )
 
-var Conf = new(AppConfig)
+var Conf = new(ConfigUnit)
 
-type AppConfig struct {
-	Name            string `mapstructure:"name"`
-	Mode            string `mapstructure:"mode"`
-	Version         string `mapstructure:"version"`
-	Port            int    `mapstructure:"port"`
+type ConfigUnit struct {
+	*AppConfig      `mapstructure:"app"`
 	*LogConfig      `mapstructure:"log"`
 	*DatabaseConfig `mapstructure:"datasource"`
 	*RedisConfig    `mapstructure:"redis"`
+}
+type AppConfig struct {
+	Name      string `mapstructure:"name"`
+	Mode      string `mapstructure:"mode"`
+	Version   string `mapstructure:"version"`
+	Port      int    `mapstructure:"port"`
+	StartTime string `mapstructure:"start_time"`
+	MachineID string `mapstructure:"Machine_id"`
 }
 type LogConfig struct {
 	Level      string `mapstructure:"level"`
@@ -64,6 +69,7 @@ func Init() (err error) {
 	}
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
+		//配置文件修改之后自动修改Conf
 		fmt.Printf("config file changed %s \n:", e.Name)
 		if err := viper.Unmarshal(Conf); err != nil {
 			panic(fmt.Errorf("viper.Unmarshal() failed: %s \n", err))

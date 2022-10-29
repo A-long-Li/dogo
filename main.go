@@ -20,6 +20,8 @@ import (
 	"web_app/routes"
 	"web_app/settings"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/spf13/viper"
 
 	"go.uber.org/zap"
@@ -36,6 +38,11 @@ func main() {
 
 	//defer redis.Close()
 	r := routes.SetUp()
+	r.GET("/version", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"data": settings.Conf,
+		})
+	})
 	//平滑关机 重启项目
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", viper.GetInt("app.port")),

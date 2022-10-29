@@ -16,5 +16,6 @@ import (
 func SetUp() (r *gin.Engine) {
 	r = gin.Default()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true))
+
 	return
 }

@@ -3,11 +3,12 @@ app:
   name: web_app
   mode: dev
   port: 8080
+  version: v0.0.1
 #日志配置
 log:
   level: debug
   filename: web_app.log
-  max_size: 200
+  max_size: 250
   max_age: 30
   max_backup: 7
 #数据库连接设置
