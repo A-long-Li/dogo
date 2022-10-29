@@ -1,2 +1,2 @@
-# web_app
+# dogo
 goweb开发脚手架

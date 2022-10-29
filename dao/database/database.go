@@ -10,8 +10,8 @@ package database
 import (
 	"fmt"
 	"net/url"
-	"web_app/settings"
 
+	"dogo/settings"
 	"go.uber.org/zap"
 
 	"github.com/jinzhu/gorm"

@@ -14,11 +14,12 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"web_app/dao/database"
-	"web_app/dao/redis"
-	"web_app/logger"
-	"web_app/routes"
-	"web_app/settings"
+
+	"dogo/dao/database"
+	"dogo/dao/redis"
+	"dogo/logger"
+	"dogo/routes"
+	"dogo/settings"
 
 	"github.com/gin-gonic/gin"
 

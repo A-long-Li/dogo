@@ -8,6 +8,7 @@
 package logger
 
 import (
+	"dogo/settings"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -15,7 +16,6 @@ import (
 	"runtime/debug"
 	"strings"
 	"time"
-	"web_app/settings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"

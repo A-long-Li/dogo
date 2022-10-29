@@ -8,7 +8,7 @@
 package routes
 
 import (
-	"web_app/logger"
+	"dogo/logger"
 
 	"github.com/gin-gonic/gin"
 )
